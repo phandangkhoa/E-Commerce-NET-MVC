@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNet.Identity
+@{ 
+ 
+}
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right", enctype = "multipart/form-data" }))
+    {
+@Html.AntiForgeryToken()    
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="partial_login_wrapper">
+                            <div class="dropdown">        
+                                <img alt="ava" class="dropBtn" style="border-radius:50%" src=@Html.Action("Index", "ShowImgCurrentUser") />
+                               
+                                <div class="dropdown-content">
+                                    @if (User.IsInRole("User"))
+                                    {
+                                     <div class="list-group-item-text">
+                                        @Html.ActionLink("Quản lý tài khoản", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Quản lý tài khoản" })
+                                    </div>
+                                    <hr />
+                                    <div class="list-group-item-text">
+                                        <a target="_parent" href="/Orders/ListOrderOfUser">Quản lý đơn hàng</a>
+                                    </div>
+                                   
+                                    <hr /> }
+                                    <div class="list-group-item-text">
+                                        <a href="javascript:document.getElementById('logoutForm').submit()">Log off &nbsp;<span class="glyphicon glyphicon-log-out"></span></a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul> }
+                                }
+                                else
+                                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    </ul>}

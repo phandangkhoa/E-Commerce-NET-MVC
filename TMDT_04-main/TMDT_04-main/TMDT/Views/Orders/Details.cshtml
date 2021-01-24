@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TMDT.Models.OrderDetail>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<label class="control-label">Họ tên: @ViewBag.name</label>
+<br />
+<label class="control-label">Email: @ViewBag.email</label>
+<br />
+<label class="control-label">Địa chỉ: @ViewBag.address</label>
+<br />
+<label class="control-label">Số điện thoại: @ViewBag.phone</label>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Book.BookName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPriceSale)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.BookName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPriceSale)
+            </td>
+
+        </tr>
+    }
+
+</table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,10 @@
+﻿.createBtn {
+    font-size: 15px;
+    background-color: #83d9dc;
+    color: #F0AF83;
+}
+
+    .createBtn:hover {
+        box-shadow:unset;
+        border-bottom-color: orangered;
+    }

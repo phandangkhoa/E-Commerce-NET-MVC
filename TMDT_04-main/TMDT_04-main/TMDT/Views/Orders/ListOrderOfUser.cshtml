@@ -1,0 +1,57 @@
+﻿@model IEnumerable<TMDT.Models.Order>
+
+@{
+    ViewBag.Title = "ListOrderOfUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input class="form-control" id="myInput" type="text" placeholder="Search..">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AddressOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+        </tr>
+    </thead>
+    <tbody id="myTable">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddressOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Payment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "DetailOfUser", new { id = item.OrderID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

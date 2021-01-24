@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "Content/LayoutAdmin/LayoutAdminStyles.css",
+    "inputFile": "Content/LayoutAdmin/LayoutAdminStyles.scss"
+  },
+  {
+    "outputFile": "Content/LayoutAdminStyles.css",
+    "inputFile": "Content/LayoutAdminStyles.scss"
+  },
+  {
+    "outputFile": "Content/Site.css",
+    "inputFile": "Content/Site.scss"
+  }
+]

@@ -1,0 +1,94 @@
+﻿@model TMDT.Models.Cart
+@{ ViewBag.Title = "ShowToCart";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+@if (Model != null)
+{
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Tên
+            </th>
+            <th>
+                Hình ảnh
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Tổng
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            double total = Convert.ToDouble(item._shopping_product.BookPrice * item._shopping_quantity);
+<tr>
+    <td>
+        @Html.DisplayFor(model => item._shopping_product.BookName)
+    </td>
+    <td>
+        <img src="@Url.Content(item._shopping_product.Image)" style="width:40px; height:40px;" />
+    </td>
+    <td>
+        @Html.DisplayFor(model => item._shopping_product.BookPrice)&#36;
+    </td>
+    <td>
+        @using (Html.BeginForm("Update_Quantity_Cart", "ShoppingCart"))
+        {
+<input type="hidden" value="@item._shopping_product.BookID" name="ID_Product" />
+                        <input type="number" value="@item._shopping_quantity" name="Quantity" style="outline:none;border:none;" max=@item._shopping_product.InStock min="1" />
+                                                <button type="submit" value="Update Quantity" style="outline:none;border:none;" class="btn btn-info">Update</button>}
+
+    </td>
+    <td>
+        @total.ToString("N0")&#36;
+
+    </td>
+    <td>
+        <a href="/ShoppingCart/RemoveCart/@item._shopping_product.BookID" class="glyphicon glyphicon-remove-circle"></a>
+    </td>
+</tr>Session["SesTotal"] = total;
+                }
+    </tbody>
+    <tfoot>
+        @*<tr>
+                <td colspan="2"></td>
+                <td colspan=" 4" style="text-align:center">
+                    @using (Html.BeginForm("CheckOut", "ShoppingCart"))
+                    {
+                        <table style="border-collapse:separate; border-spacing:5px">
+
+                            <tr>
+                                <td>
+                                    <input type="submit" value="CheckOut" class="btn btn-success" />
+
+                                </td>
+
+
+                            </tr>
+                        </table>
+                    }
+                </td>
+            </tr>*@
+        <tr>
+            <td colspan="6">
+                Tổng cộng: @Model.Total_Money().ToString("N0")&#36;
+            </td>
+        </tr>
+    </tfoot>
+
+</table>
+ <div width="100%"><a href="@Url.Action("ThanhToan","ShoppingCart")" class="btn btn-danger">Thanh toán</a><a href="/" class="btn btn-sm btn-default" style="text-align:right; float:right "><<<  Back to Home</a></div> }
+ else
+ {
+ <div>@ViewBag.nullCart</div>}
+

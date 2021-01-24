@@ -1,0 +1,70 @@
+﻿@model IEnumerable<TMDT.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+    <table class="table table-bordered" id="dataTable" width="100%" height="100%" cellspacing="2">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NameRec)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddressOrder)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneOrder)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Payment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NameRec)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddressOrder)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneOrder)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Payment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit","Orders",new { id = item.OrderID })" class="btn">
+                            <i class="far fa-edit fa-2x" style="color:#FFDAC1"></i>
+                        </a>
+                        <a href="@Url.Action("Details","Orders",new { id = item.OrderID })" class="btn">
+                            <i class="fa fa-sticky-note fa-2x" style="color:#83d9dc" aria-hidden="true"></i>
+
+                        </a>
+                        <a href="@Url.Action("Delete","Orders",new { id = item.OrderID })" class="btn">
+                            <i class="fa fa-trash fa-2x" style="color:#FF9AA2" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>

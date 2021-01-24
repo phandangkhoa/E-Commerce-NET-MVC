@@ -1,0 +1,83 @@
+﻿@model IEnumerable<TMDT.Models.UserInRoleViewModel>
+
+@{
+    ViewBag.Title = "Users With Roles";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="box-title">
+                <b>Users with Roles</b>
+            </h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="panel-body">
+            <table class="table table-hover table-bordered table-condensed" id="UsersWithRoles">
+                <thead>
+                    <tr>
+                        <td><b>Tên người dùng</b></td>
+                        <td><b>Email</b></td>
+                        <td><b>Quyền hiện tại</b></td>
+                        <td><b>Chọn quyền để thay đổi</b></td>
+                    </tr>
+                </thead>
+                @foreach (var user in Model)
+                {
+
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>
+                    @user.Role
+
+                </td>  @using (Html.BeginForm("Edit", "ManageRole", FormMethod.Post))
+                {
+
+            <td style="display:flex">
+
+                <input hidden="hidden" value=@user.UserId name="userId" id="userId" />
+                <select class="form-control form-group-sm" name="roleName" id="roleName">
+                    @foreach (var item in ViewBag.Roles)
+                    {
+                        <option value=@item.Name>@item.Name</option>
+                    }
+                </select>
+                <button type="submit" class="btn btn-primary">Sửa</button>
+
+            </td>
+            <td>
+             
+                @Html.ActionLink("Detail", "Detail", new { id = user.UserId })
+            </td> 
+                    }
+                </tr>
+
+                }
+            </table>
+        </div>
+
+        <!-- Modal -->  
+      
+            <div class="panel-footer">
+                <p class="box-title"><b>Total Users till @String.Format("{0 : dddd, MMMM d, yyyy}", DateTime.Now)  : </b><span class="label label-primary">@Model.Count()</span></p>
+            </div>
+        </div>
+
+
+@section scripts{
+    <script>
+
+        $(function () {
+            $('#UsersWithRoles').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true
+            });
+        });
+    </script>
+}  

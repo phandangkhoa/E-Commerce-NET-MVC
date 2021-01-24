@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TMDT.Models.Price>
+@section Scripts {
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>jQuery UI Slider - Range slider</title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="~/Scripts/jquery-1.12.4.js"></script>
+        <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+        <script>
+            $( function() {
+                $( "#slider-range" ).slider({
+                    range: true,
+                    min: 0,
+                    max: @Model.OrderBy(w => w.price).Last().price, // Here is get the max value of price from controller
+                    values: [ 0, 500 ],
+                    slide: function( event, ui ) {
+                        $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                        $("#amount2").val("$" + ui.values[0]);
+                        $("#amount3").val("$" + ui.values[1]);
+                    }
+                });
+                $( "#amount1" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+                  " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+            } );
+        </script>
+    </head>
+    <body>
+        <p>
+            <label for="amount">Price</label>
+        </p>
+        <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
+        <div id="slider-range" class="ui-slider-range ui-widget-header ui-corner-all" style="right: 0%; width: 15%;"></div>
+        <label style="padding-right:150px;" for="amount">From</label><label for="amount">TO</label><br>
+        <input type="text" id="amount2" readonly style="border:0; color:#f6931f; font-weight:bold;"><input type="text" id="amount3" readonly style="border:0; color:#f6931f; font-weight:bold;">
+    </body>
+</html>
+}

@@ -1,0 +1,31 @@
+﻿@model TMDT.Models.ViewModel.UserVM
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using (Html.BeginForm("EditUser", "ManageRole", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+
+
+<table class="table table-bordered">
+    <tr>
+        <td>Email</td>
+        <td>Mật khẩu</td>
+        <td>Địa chỉ</td>
+        <td>Số điện thoại</td>
+        <td>Giới tính</td>
+    </tr>
+
+    <tr>
+        
+        <td><input type="text" name="id" id="id" value="@Model.Id" hidden="hidden" />
+        @Model.Email </td>
+        <td>@Model.Password
+        @Html.ActionLink("ChangePassword", "ChangePassword", new { id = Model.Id })</td>
+        <td><input class="form-control" value="@Model.Address" type="text" id="address" name="address" /></td>
+        <td><input class="form-control" value=@Model.Phone type="tel" id="phone" name="phone" /></td>
+        <td><input class="form-control" type="text" value=@Model.Sex id="sex" name="sex"/></td>
+    </tr>
+</table>
+<button class="btn btn-warning" type="submit">Sửa</button>
+}

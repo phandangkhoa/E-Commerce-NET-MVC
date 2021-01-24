@@ -1,0 +1,88 @@
+﻿                @model TMDT.Models.Cart
+                @{ ViewBag.Title = "ThanhToan";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+                @if (Model != null)
+                {
+                using (Html.BeginForm("Create", "Orders", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                {@Html.AntiForgeryToken()
+                <label class="control-label">Nhập thông tin người nhận</label>
+                <input id="userName" name="userName" required class="form-control" type="text" value="@User.Identity.Name" placeholder="Nhập tên người nhận" />
+                <input id="phoneNumber" name="phoneNumber" required class="form-control" type="tel" value="@ViewBag.CurrentPhone" placeholder="Nhập số điện thoại" />
+                <input id="addressShip" name="addressShip" required class="form-control" type="text" value="@ViewBag.CurrentAddress" placeholder="Nhập địa chỉ" />
+                <table class="table table-bordered">
+                <thead>
+                <tr>
+                <th>
+                Hình ảnh
+                </th>
+                <th>
+                Tên
+                </th>
+
+                <th>
+                Giá
+                </th>
+                <th>
+                Số lượng
+                </th>
+                <th>
+                Tổng
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Items)
+                {
+                double total = Convert.ToDouble(item._shopping_product.BookPrice * item._shopping_quantity);
+                <tr>
+
+                <td>
+                <img src="@Url.Content(item._shopping_product.Image)" style="width:40px; height:40px;" />
+                </td>
+                <td>
+                @Html.DisplayFor(model => item._shopping_product.BookName)
+                </td>
+                <td>
+                @Html.DisplayFor(model => item._shopping_product.BookPrice)&#36;
+                </td>
+                <td>
+                <input type="number" disabled value="@item._shopping_quantity" name="Quantity" style="outline:none;border:none;" />
+                </td>
+                <td>
+                @total.ToString("N0")&#36;
+                </td>
+                </tr>
+                }
+                </tbody>
+                <tfoot>
+                <tr>
+                <td colspan="5">
+                Tổng cộng: @Model.Total_Money().ToString("N0")&#36;
+                </td>
+                </tr>
+                </tfoot>
+
+                </table>
+                <div class=" list-group-item">
+                    <input class="radio-inline" type="radio" id="shipCode" name="payment" value=0 checked  >
+                    <label for="shipCode"> Thanh toán khi nhận hàng</label>
+                    <br />
+                    <input class="radio-inline" type="radio" id="shipCode" name="payment" value=1>
+                    <label for="shipCode"> Thanh toán bằng <img src="https://developers.momo.vn/images/logo.png" width="25" /></label>
+                    <br />
+                    <input class="radio-inline" type="radio" id="shipCode" name="payment" value=2>
+                    <label for="shipCode"> Thanh toán bằng <img src="~/Content/Images/paypal.svg" height="25" /></label>                    
+                    <br />
+                    <a href="/" class="btn btn-sm btn-default" style=" float:right "><<<  Back to Home</a>
+                    <div>  <input class="btn-sm btn-success" type="submit" value="Thanh Toán" /></div>
+                </div>
+              
+                }
+
+                }
+             
+    else
+    {
+    @ViewBag.nullCart
+    }

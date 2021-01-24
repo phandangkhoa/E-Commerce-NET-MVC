@@ -1,0 +1,34 @@
+﻿@model TMDT.Models.Publisher
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div>
+   
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PublisherName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PublisherName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PublisherEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PublisherEmail)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PublisherID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

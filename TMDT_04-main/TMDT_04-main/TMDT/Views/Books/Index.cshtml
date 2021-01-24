@@ -1,0 +1,403 @@
+﻿
+@model IPagedList<TMDT.Models.Book>
+
+
+@using TMDT.Models
+@using PagedList;
+@using PagedList.Mvc;
+@{ ViewBag.Title = "Index";
+    if (User.IsInRole("ADMIN") == true)
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    } }
+
+
+@if (User.IsInRole("ADMIN") == true)
+{
+    <div class="row" style="margin-left:0px">
+        <div class="col-4" style="float:right">
+            <button class="btn btn-default btn-sm" style="margin-bottom:10px">
+                @Html.ActionLink("Create New", "Create")
+            </button>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <table class="table table-bordered" id="dataTable" width="100%" height="100%" cellspacing="2" style="align-content:center;justify-content:center">
+        <thead class="thead-dark">
+            <tr>
+                <th style="align-items:center">
+                    @Html.DisplayNameFor(model => model.First().Author.AuthorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Category.CateName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Provider.ProviderName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Publisher.PublisherName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().BookName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().InStock)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().BookPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().BookDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().PublisherDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Image)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody id="myTable">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width:100px">
+                        @Html.DisplayFor(modelItem => item.Author.AuthorName)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CateName)
+                    </td>
+                    <td style="width:100px">
+                        @Html.DisplayFor(modelItem => item.Provider.ProviderName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.BookName)
+                    </td>
+                    <td style="width:80px">
+
+                        @Html.DisplayFor(modelItem => item.InStock)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookPrice)
+                    </td>
+                    <td style=" -webkit-line-clamp: 3;
+                            line-height:18px;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            display: -webkit-box;
+                            padding:0;
+                            width:200px;
+                            text-overflow:ellipsis;
+                            ">
+                        " >
+                        @Html.DisplayFor(modelItem => item.BookDescription)
+                    </td>
+                    <td style="width:100px">
+                        @Html.DisplayFor(modelItem => item.PublisherDate)
+                    </td>
+                    <td>
+                        <img src="@Url.Content(item.Image)" style="height:40px ;width:40px;" />
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit","Books",new { id = item.BookID })" class="btn">
+                            <i class="far fa-edit fa-2x" style="        color: #F0AF83"></i>
+                        </a>
+                        <a href="@Url.Action("Details","Books",new { id = item.BookID })" class="btn">
+                            <i class="fa fa-sticky-note fa-2x" style="color:#83d9dc" aria-hidden="true"></i>
+
+                        </a>
+                        <a href="@Url.Action("Delete","Books",new { id = item.BookID })" class="btn">
+                            <i class="fa fa-trash fa-2x" style="color:#FF9AA2" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>
+        <div class="container view_book_wrapper">
+            <div class="banner_top ">
+                <div class="slideshow-container row" style="margin-left:0px !important">
+                    <div class="nav_wrapper col-sm-2 col-md-4 col-lg-4">
+                        <div class="category-heading">
+                            <h3> Browse Categories</h3>
+                        </div>
+                        @using (Html.BeginForm("LoadSachTheoDanhMuc", "Books"))
+                        {
+                            <input hidden="hidden" type="text" name="name" value="Kỹ Năng sống" />
+                            <input class="input_cate" type="submit" value="Kỹ Năng sống" />}
+                        @using (Html.BeginForm("LoadSachTheoDanhMuc", "Books"))
+                        {
+                            <input hidden="hidden" type="text" name="name" value="Kinh Tế" />
+                            <input class="input_cate" type="submit" value="Kinh Tế" />}
+                        @using (Html.BeginForm("LoadSachTheoDanhMuc", "Books"))
+                        {
+                            <input hidden="hidden" type="text" name="name" value="Tiểu Sử Hồi Ký" />
+                            <input class="input_cate" type="submit" value="Tiểu Sử Hồi Ký" />}
+                        @using (Html.BeginForm("LoadSachTheoDanhMuc", "Books"))
+                        {
+                            <input hidden="hidden" type="text" name="name" value="Ngôn Tình" />
+                            <input class="input_cate" type="submit" value="Ngôn Tình" />}
+                        @using (Html.BeginForm("LoadSachTheoDanhMuc", "Books"))
+                        {
+                            <input hidden="hidden" type="text" name="name" value="Tiểu Thuyết" />
+                            <input class="input_cate" type="submit" value="Tiểu Thuyết" />}
+                        <a href="#news">VPP - DCHS Theo Thương Hiệu</a>
+                        <a href="#news">Sản phẩm</a>
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                Bách Hoá OnLine - Lưu niệm
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="#">Ví túi</a>
+                                <a href="#">Đồng hồ</a>
+                                <a href="#">Móc khoá</a>
+                                <a href="#">Khung hình</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8" style="padding:0px;">
+                        <ul class="container" style="padding:0px;margin:0">
+                            <li><img src="~/Content/Images/book_banner1.jpg"></li>
+                            <li><img src="~/Content/Images/book_banner3.jpg"></li>
+                            <li><img src="~/Content/Images/book_banner1.jpg"></li>
+                            <li><img src="~/Content/Images/book_banner2.jpg"></li>
+                            <li><img src="~/Content/Images/book_banner3.jpg"></li>
+                        </ul>
+                    </div>
+                </div>
+ 
+                <div class="container carousel">
+                    <div class="container" >
+                        <div class="center-block"><h2> News product</h2></div>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="carousel slide multi-item-carousel" id="theCarousel">
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <div class="col-xs-4">
+                                                <div class="book-item">
+                                                    <div class="product-block">
+                                                        <div class="left-block">
+                                                            <a class="product_img_link" target="_blank" href="sa" title="Book">
+                                                                <img class="img-responsive" src="~/Content/Images/book3.jpg" border="0" alt="banner" style="height:250px;width:auto" />
+                                                            </a>
+                                                            <a target="_blank" href="asdsa" class="quick-view btn-tooltip">
+                                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                                            </a>
+                                                            <span class="label-new label">New</span>
+                                                        </div>
+                                                        <div class="right-block">
+                                                            <div class="product-meta">
+                                                                <h5 class="name">
+                                                                    <a target="_blank" href="null" class="product-name">Sống như những đoá hoa</a>
+                                                                </h5>
+                                                                <div class="content_price">
+                                                                    <span class="price product-price">
+                                                                       80,000₫
+                                                                    </span>
+                                                                    <span class="old-price product-price">999,999&#36;</span>
+                                                                    <span class="price-percent-reduction">50%</span>
+                                                                </div>
+                                                                <div class="functional-buttons clearfix">
+
+                                                                    <a target="_parent" href="asdsad" class="button ajax_add_to_cart_button"><span>Add to cart</span></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if (ViewData["latestbooks"] !=null)
+                                        {
+
+                                       foreach (var item in ViewData["latestbooks"] as IEnumerable<TMDT.Models.Book>)
+                                        {
+                                            if (item.InStock != 0 || item.InStock > 0)
+                                            {
+                                                <div class="item">
+                                                    <div class="col-xs-3">
+                                                        <div class="book-item">
+                                                            <div class="product-block">
+                                                                <div class="left-block">
+                                                                    <a class="product_img_link" target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" title="Book">
+                                                                        <img class="img-responsive" src="@Url.Content(item.Image)" border="0" alt="banner" style="height:250px;width:auto" />
+                                                                    </a>
+                                                                    <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="quick-view btn-tooltip">
+                                                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                                                    </a>
+                                                                    <span class="label-new label">New</span>
+                                                                </div>
+                                                                <div class="right-block">
+                                                                    <div class="product-meta">
+                                                                        <h5 class="name">
+                                                                            <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="product-name">@Html.DisplayFor(modelItem => item.BookName)</a>
+                                                                        </h5>
+                                                                        <div class="content_price">
+                                                                            <span class="price product-price">
+                                                                                @item.BookPrice.ToString("N0")₫
+                                                                            </span>
+                                                                            <span class="old-price product-price">999,999&#36;</span>
+                                                                            <span class="price-percent-reduction">50%</span>
+                                                                        </div>
+                                                                        <div class="functional-buttons clearfix">
+
+                                                                            <a target="_parent" href="/ShoppingCart/AddToCart/@item.BookID?quantity=1" class="button ajax_add_to_cart_button"><span>Add to cart</span></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+
+                                        }
+
+                                        <!--  Example item end -->
+                                    </div>
+                                    <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                                    <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row row_book">
+                    <h2>On The Shelf</h2>
+                    <hr style="border-radius: 2px;border: 2px solid black;"/>
+                    @ViewBag.nullBook
+                    @foreach (var item in Model)
+                    {
+                        if (item.InStock != 0 || item.InStock > 0)
+                        {
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="book-item">
+                                    <div class="product-block">
+                                        <div class="left-block">
+                                            <a class="product_img_link" target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" title="Book">
+                                                <img class="img-responsive" src="@Url.Content(item.Image)" border="0" alt="banner" style="height:250px;width:auto" />
+                                            </a>
+                                            <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="quick-view btn-tooltip">
+                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                            </a>
+                                            @*<span class="label-new label">New</span>*@
+                                        </div>
+                                        <div class="right-block">
+                                            <div class="product-meta">
+                                                <h5 class="name">
+                                                    <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="product-name">@Html.DisplayFor(modelItem => item.BookName)</a>
+                                                </h5>
+                                                <div class="content_price">
+                                                    <span class="price product-price">
+                                                        @item.BookPrice.ToString("N0")₫
+                                                    </span>
+                                                    <span class="old-price product-price">999,999₫</span>
+                                                    <span class="price-percent-reduction">50%</span>
+                                                </div>
+                                                <div class="functional-buttons clearfix">
+
+                                                    <a target="_parent" href="/ShoppingCart/AddToCart/@item.BookID?quantity=1" class="button ajax_add_to_cart_button"><span>Add to cart</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="book-item">
+                                    <div class="product-block">
+                                        <div class="left-block">
+                                            <a class="product_img_link" target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" title="Book">
+                                                <img class="img-responsive" src="@Url.Content(item.Image)" border="0" alt="banner" style="height:250px;width:auto" />
+                                            </a>
+                                            <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="quick-view btn-tooltip">
+                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                            </a>
+                                            <span class="label-new label">New</span>
+                                        </div>
+                                        <div class="right-block">
+                                            <div class="product-meta">
+                                                <h5 class="name">
+                                                    <a target="_blank" href="@Url.Action("Details", "Books", new { id = item.BookID })" class="product-name">@Html.DisplayFor(modelItem => item.BookName)</a>
+                                                </h5>
+                                                <div class="content_price">
+                                                    <span class="price product-price">
+                                                        @item.BookPrice.ToString("N0")₫
+                                                    </span>
+                                                    <span class="old-price product-price">999,999&#36;</span>
+                                                    <span class="price-percent-reduction">50%</span>
+                                                </div>
+                                                <div class="functional-buttons clearfix">
+
+                                                    <a target="_parent" href="/ShoppingCart/AddToCart/@item.BookID?quantity=1" class="button ajax_add_to_cart_button"><span>Add to cart</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    <br />
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+@Html.PagedListPager(Model, page => Url.Action("Index", "Books", new { page, search = Request.QueryString["search"] }))
+}
+@section scripts{
+    <script>
+        // Instantiate the Bootstrap carousel
+        $('.multi-item-carousel').carousel({
+            interval: false
+        });
+
+        // for every slide in carousel, copy the next slide's item in the slide.
+        // Do the same for the next, next item.
+        $('.multi-item-carousel .item').each(function () {
+            var next = $(this).next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+
+            if (next.next().length > 0) {
+                next.next().children(':first-child').clone().appendTo($(this));
+            } else {
+                $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+            }
+        });
+    </script>
+}
+
+
+

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<TMDT.Models.Provider>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+    <button class="btn btn-default btn-sm" style="margin-bottom:10px">
+        @Html.ActionLink("Create New", "Create")
+    </button>
+    <table class="table table-bordered" id="dataTable" width="100%" height="100%" cellspacing="2">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProviderName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProviderEmail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProviderPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProviderAddress)
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProviderName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProviderEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProviderPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProviderAddress)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit","Providers",new { id = item.ProviderID })" class="btn">
+                            <i class="far fa-edit fa-2x" style="        color: #F0AF83"></i>
+                        </a>
+                        <a href="@Url.Action("Details","Providers",new { id = item.ProviderID })" class="btn">
+                            <i class="fa fa-sticky-note fa-2x" style="color:#83d9dc" aria-hidden="true"></i>
+
+                        </a>
+                        <a href="@Url.Action("Delete","Providers",new { id = item.ProviderID })" class="btn">
+                            <i class="fa fa-trash fa-2x" style="color:#FF9AA2" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+    </table>
